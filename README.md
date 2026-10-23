@@ -1,25 +1,26 @@
 # Slayer Task Tracker
 
-Shows your current Slayer task, kills left, assigning master, streak, points and level, and suggests the best Slayer Master for your levels when you have no task.
+Keeps your Slayer task in one small panel:
+- **Task:** the monster, and kills left out of kills assigned.
+- **Streak:** tasks completed in a row, and how many tasks until your next
+  10th and 50th task (Slayer masters give bonus points on those).
+- **Points:** your Slayer points and progress toward a goal you set, with an
+  estimate of tasks left based on your last 20 tasks.
 
-Current version: 0.11.21
+## How to use
+1. Enable the plugin and open its panel from the Plugins window.
+2. **With chat access (optional):** get a task or check it with your enchanted
+   gem, and the panel fills itself in from the game messages. Finishing a task
+   updates your streak and points and shows a "task complete" notice.
+3. **Without chat access:** type the monster and kill count and press
+   **Set task**. Press **-1** after each kill if you want to count by hand.
+4. In Plugin Hub > Manage > settings, set your point goal and correct your
+   current points or streak.
 
-- Install from mod.io: https://mod.io/g/runescape/m/slayer-task-tracker
+## Permissions
+- **Chat access (optional)** lets the plugin read Slayer messages the game
+  shows you. Messages typed by players are ignored, and nothing is changed or
+  stored except the numbers above.
 
-## Report a bug or request a feature
-
-Open an issue: https://github.com/MAX-Q00/slayer-task-tracker/issues/new/choose
-
-For a bug, please include the plugin version, what happened, what you expected, steps to reproduce, a screenshot if you can, and your game resolution and UI scale.
-
-Contact: Dylan@quspace.agency
-
-## EULA
-
-This Plugin uses software licensed by Jagex to the developer under the terms of the Jagex End User Licence Agreement (EULA) found at https://legal.jagex.com/docs/terms/eula (and all terms incorporated into it by reference). The development and any use of the Plugin is at all times subject to the Jagex EULA.
-
-By submitting a Plugin (as defined in Schedule 4 of the EULA), you acknowledge that you agree to the terms of the Jagex End User License Agreement (EULA) found at https://legal.jagex.com/docs/terms/eula (and all terms incorporated into it be reference) and acknowledge that such terms are legally binding on you. If you do not agree to the terms of the EULA, you must not submit a Plugin or use the Plugin functionality anyway. In such circumstances, Jagex does not licence the software to you, or grant you any of the relevant rights relating to the submission of Plugins set out in the EULA and you will not be permitted to access or use the Plugin functionality in any way whatsoever.
-
----
-
-Not affiliated with or endorsed by Jagex. RuneScape is a trademark of Jagex Ltd.
+## Rules it follows
+It only shows information. It never clicks, moves or talks for you.

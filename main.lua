@@ -18,7 +18,7 @@
 local PLUGIN_NAME = "Slayer Task Tracker"
 
 local helpers  = require("ui_helpers")
-helpers.VERSION = "0.11.22"
+helpers.VERSION = "0.11.23"
 local SLAYER = 18   -- SkillType.SLAYER
 local gameVars = require("game_vars")
 local masters  = require("masters")
@@ -166,6 +166,8 @@ local barBg, barFill = nil, nil
 local editParts = {}
 local editDivider = nil
 local VAL_X = 64   -- one left edge for every value
+-- 0.11.23: the label / value border is adjustable (shared helpers.columns).
+local valCols, valHandle = nil, nil
 local settingsUI = nil
 state.show = state.show or {}
 for _, k in ipairs({ "master", "streak", "points", "level", "bar", "eta", "history" }) do
@@ -177,10 +179,16 @@ if state.showManual == nil then state.showManual = false end
 local function layoutRows(hasTask)
     -- Task row, thin progress bar, then Master/Streak/Points/Level.
     local y = H.rowY(1)
+    if valCols then VAL_X = valCols:get("label") end
+    if valHandle then
+        valHandle:setHidden(not hasTask)
+        valHandle:place(H.PAD + VAL_X - 3, y, H.ROW_HEIGHT)
+    end
     local function place(cells, show)
         for ci, c in ipairs(cells or {}) do
             helpers.safe(function()
                 c.hidden = not show
+                if ci == 1 then c:SetSize(VAL_X - 2, H.ROW_HEIGHT) else c:SetSize(-(2 * H.PAD + VAL_X), H.ROW_HEIGHT, 1.0, 0.0) end
                 c:SetPos(ci == 1 and H.PAD or (H.PAD + VAL_X), y)
             end)
         end
@@ -322,9 +330,12 @@ end
 local function buildPanel(root)
     panelRoot = root
     lines = {}
+    valCols = helpers.columns("task", { label = { w = 64, min = 40, max = 200 } }, function() pcall(refresh) end)
+    VAL_X = valCols:get("label")
     local cols = { { x = H.PAD, w = VAL_X - 2 }, { x = H.PAD + VAL_X, w = -(2 * H.PAD + VAL_X), pw = 1.0 } }
     for i = 1, 17 do lines[i] = helpers.tableRow(root, 1, cols) end
     emptyText = helpers.textRow(root, 1, "")
+    valHandle = valCols:handle(root, "label", 1, "Drag to resize the label / value columns (Settings > Column widths > Reset).")
     pcall(function()
         barBg = ui.Rectangle.new(root)
         barBg.fill = true -- 0.11.7: Rectangle.fill defaults to false (outline only)
