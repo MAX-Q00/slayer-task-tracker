@@ -18,7 +18,7 @@
 local PLUGIN_NAME = "Slayer Task Tracker"
 
 local helpers  = require("ui_helpers")
-helpers.VERSION = "0.11.26"
+helpers.VERSION = "0.11.27"
 local SLAYER = 18   -- SkillType.SLAYER
 local gameVars = require("game_vars")
 local masters  = require("masters")
